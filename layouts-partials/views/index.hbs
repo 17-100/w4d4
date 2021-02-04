@@ -1,0 +1,16 @@
+{{!-- handlebars statements are in two curly brackets {{ }} --}}
+<h1>Welcome {{ this.name }} 👋</h1>
+{{!-- it's also possible to remove the this --}}
+{{!-- <h1>Welcome {{ name }} 👋</h1> --}}
+
+{{#if list}}
+<h2>This is your Todo List</h2>
+<ul>
+    {{#each list}}
+        {{!-- <this> is one of the elements in the array that we are iterating over --}}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+{{else}}
+<h2>No Todos 🙃</h2>
+{{/if}}

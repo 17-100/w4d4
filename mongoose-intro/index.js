@@ -1,6 +1,3 @@
-
-
-
 const mongoose = require('mongoose');
 
 /*
@@ -40,6 +37,7 @@ const bookSchema = mongoose.Schema({
 
 const Book = mongoose.model('Book', bookSchema);
 // 'mongodb://localhost/<name of the database>'
+// the database get's created if it is not existing yet
 mongoose.connect('mongodb://localhost/mongoose-intro', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -52,47 +50,54 @@ mongoose.connect('mongodb://localhost/mongoose-intro', {
         console.log('an error occurred: ', err);
     })
 
-// CRUD Create Read Update Delete
+// CRUD -> Create Read Update Delete
 
-// Book.create({
-//     title: 'another title',
-//     author: 'another author',
-//     pages: 200
-// })
-//     .then(book => {
-//         console.log('this book was created: ', book);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
+// create a book with the properties of the passed in object
+Book.create({
+    title: 'another title',
+    author: 'another author',
+    pages: 200
+})
+    .then(book => {
+        console.log('this book was created: ', book);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
-
+// check out the mongoose documentation for more queries
 // https://mongoosejs.com/docs/queries.html - all the queries
-// Book.findById('601c1ed9214abf26ebfa2c0d')
-//     .then(book => {
-//         console.log('found this book by its id', book);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
+
+// find a book by it's id
+Book.findById('601c1ed9214abf26ebfa2c0d')
+    .then(book => {
+        console.log('found this book by its id', book);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
 // get all the books with no parameters or just the book that matches the query
-// Book.findOne({}) => get's the first document that matches the query
-// Book.find({ title: 'some title' })
-//     .then(books => {
-//         console.log('found these books', books);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
+// Book.find() -> returns all the books !! returns an array 
+Book.find({ title: 'some title' })
+    .then(books => {
+        console.log('found these books', books);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
-// Book.findOneAndUpdate({ title: 'changed title' }, { title: 'yet another title' }, { new: true })
-//     .then(book => {
-//         console.log(book);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
+// findOneAndUpdate(<search query>, <fields that should be changed>) -> if you pass in {new: true}
+// as an additional parameter you get the changed book returned - otherwise the book as it was 
+// before the update
+Book.findOneAndUpdate({ title: 'changed title' }, { title: 'yet another title' }, { new: true })
+    .then(book => {
+        console.log(book);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
 // delete the book matching the query
 Book.findOneAndDelete({ title: 'another title' })
     .then(book => {

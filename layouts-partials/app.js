@@ -27,7 +27,7 @@ app.get('/godfather', (req, res) => {
     const godfather = movies.find(function (movie) {
         return movie.title === 'The Godfather';
     })
-    res.render('movieDetails', { clickedMovie: godfather })
+    res.render('movieDetails', { clickedMovie: godfather, user: 'Kevin' })
 })
 
 

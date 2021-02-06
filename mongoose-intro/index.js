@@ -99,8 +99,11 @@ Book.findOneAndUpdate({ title: 'changed title' }, { title: 'yet another title' }
     })
 
 // delete the book matching the query
+// another method: Book.findByIdAndDelete()
+
 Book.findOneAndDelete({ title: 'another title' })
     .then(book => {
+        // this returns the book that was deleted
         console.log(book);
         // this closes the connection
         mongoose.connection.close();
